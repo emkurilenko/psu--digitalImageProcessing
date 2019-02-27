@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="800.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kurilenko.view.Controller">
+   <center>
+      <SplitPane fx:id="splitPane" dividerPositions="0.2524752475247525" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <items>
+            <ScrollPane>
+               <content>
+                  <ImageView fx:id="oldImageView" fitHeight="500.0" pickOnBounds="true" preserveRatio="true" />
+               </content>
+            </ScrollPane>
+            <ScrollPane>
+               <content>
+                  <ImageView fx:id="newImageView" fitHeight="500.0" pickOnBounds="true" preserveRatio="true" />
+               </content>
+            </ScrollPane>
+         </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <HBox prefHeight="50.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#operationUndo" text="Undo">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="15.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#operationRedo" text="Redo">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="15.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children></HBox>
+   </bottom>
+   <right>
+      <SplitPane prefHeight="504.0" prefWidth="214.0" BorderPane.alignment="CENTER">
+        <items>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+        </items>
+      </SplitPane>
+   </right>
+   <top>
+      <HBox prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#openPicture" text="Open Picture">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="15.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#savePicture" text="Save Picture">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="15.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
