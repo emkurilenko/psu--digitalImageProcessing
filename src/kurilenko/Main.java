@@ -21,7 +21,6 @@ public class Main extends Application {
         controller.setStage(primaryStage);
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
