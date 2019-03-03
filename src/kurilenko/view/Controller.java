@@ -1,7 +1,6 @@
 package kurilenko.view;
 
 
-import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import kurilenko.utils.WorkWithFile;
+import kurilenko.transfer.ImageToBinary;
+import kurilenko.transfer.ImageToGray;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -52,7 +52,7 @@ public class Controller {
     void openPicture(ActionEvent event) throws IOException {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files",
-                        "*.bmp", "*.png", "*.jpg", "*.gif")); // limit chooser options to image files
+                        "*.bmp", "*.png", "*.jpg")); // limit chooser options to image files
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             String urlPath = file.toURI().toURL().toString();
@@ -61,7 +61,6 @@ public class Controller {
             newImageView.setImage(image);
             oldBufferedImage = ImageIO.read(file);
             newBufferedImage = ImageIO.read(file);
-            undoImageStack.push(oldBufferedImage);
         }else{
 
         }
@@ -71,17 +70,17 @@ public class Controller {
     void operationRedo(ActionEvent event) {
         if(!redoImageStack.isEmpty()) {
             BufferedImage pop = redoImageStack.pop();
-            newImageView.setImage(SwingFXUtils.toFXImage(redoImageStack.peek(), null));
             undoImageStack.push(pop);
+            newImageView.setImage(SwingFXUtils.toFXImage(undoImageStack.peek(), null));
         }
     }
 
     @FXML
     void operationUndo(ActionEvent event) {
-        if(undoImageStack.size() >= 2) {
+        if(!undoImageStack.isEmpty()) {
             BufferedImage pop = undoImageStack.pop();
-            newImageView.setImage(SwingFXUtils.toFXImage(undoImageStack.peek(), null));
             redoImageStack.push(pop);
+            newImageView.setImage(SwingFXUtils.toFXImage(redoImageStack.peek(), null));
         }
     }
 
@@ -98,15 +97,22 @@ public class Controller {
 
     @FXML
     void convertToBinaryImage(ActionEvent event) {
-
+        if(newBufferedImage != null) {
+            BufferedImage convertToBinaryImage = ImageToBinary.binarize(ImageToGray.convertToGrayImage(newBufferedImage));
+            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
+            Image image = SwingFXUtils.toFXImage(convertToBinaryImage, null);
+            newImageView.setImage(image);
+        }
     }
 
     @FXML
     void convertToGrayImage(ActionEvent event) {
-        BufferedImage convertToGrayImage = WorkWithFile.convertToGrayImage(newBufferedImage);
-        undoImageStack.push(convertToGrayImage);
-        Image image = SwingFXUtils.toFXImage(convertToGrayImage, null);
-        newImageView.setImage(image);
+        if(newBufferedImage != null) {
+            BufferedImage convertToGrayImage = ImageToGray.convertToGrayImage(newBufferedImage);
+            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
+            Image image = SwingFXUtils.toFXImage(convertToGrayImage, null);
+            newImageView.setImage(image);
+        }
     }
 
 }

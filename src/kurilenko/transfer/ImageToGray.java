@@ -1,9 +1,9 @@
-package kurilenko.utils;
+package kurilenko.transfer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class WorkWithFile {
+public class ImageToGray {
     public static BufferedImage convertToGrayImage(BufferedImage oldImage) {
         BufferedImage convertImage = new BufferedImage(oldImage.getWidth(), oldImage.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int i = 0; i < oldImage.getHeight(); i++) {
