@@ -1,4 +1,4 @@
-package kurilenko.transfer;
+package kurilenko.proccess;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

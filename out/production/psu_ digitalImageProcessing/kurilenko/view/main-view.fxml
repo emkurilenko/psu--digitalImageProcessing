@@ -59,6 +59,20 @@
                            </HBox.margin>
                         </Button>
                      </children></HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="212.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#saltAndPepperNoise" text="Salt and pepper">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#gaussianNoise" text="Gauss">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
         </items>

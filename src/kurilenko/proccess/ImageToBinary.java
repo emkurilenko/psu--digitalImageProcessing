@@ -1,4 +1,4 @@
-package kurilenko.transfer;
+package kurilenko.proccess;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -89,7 +89,7 @@ public class ImageToBinary {
 
     }
 
-    private static int colorToRGB(int alpha, int red, int green, int blue) {
+    public static int colorToRGB(int alpha, int red, int green, int blue) {
 
         int newPixel = 0;
         newPixel += alpha;

@@ -4,18 +4,22 @@ package kurilenko.view;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import kurilenko.transfer.ImageToBinary;
-import kurilenko.transfer.ImageToGray;
+import kurilenko.proccess.ImageToBinary;
+import kurilenko.proccess.ImageToGray;
+import kurilenko.proccess.Noise;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Stack;
 
 public class Controller {
@@ -28,6 +32,8 @@ public class Controller {
     private ImageView newImageView;
     @FXML
     private SplitPane splitPane;
+    @FXML
+    private Slider brightnessSlider;
 
     private BufferedImage oldBufferedImage;
 
@@ -46,6 +52,9 @@ public class Controller {
     @FXML
     public void initialize() {
         SplitPane.setResizableWithParent(splitPane, Boolean.TRUE);
+        brightnessSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+        });
     }
 
     @FXML
@@ -72,6 +81,7 @@ public class Controller {
             BufferedImage pop = redoImageStack.pop();
             undoImageStack.push(pop);
             newImageView.setImage(SwingFXUtils.toFXImage(undoImageStack.peek(), null));
+            newBufferedImage = undoImageStack.peek();
         }
     }
 
@@ -81,6 +91,7 @@ public class Controller {
             BufferedImage pop = undoImageStack.pop();
             redoImageStack.push(pop);
             newImageView.setImage(SwingFXUtils.toFXImage(redoImageStack.peek(), null));
+            newBufferedImage = redoImageStack.peek();
         }
     }
 
@@ -102,6 +113,7 @@ public class Controller {
             undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
             Image image = SwingFXUtils.toFXImage(convertToBinaryImage, null);
             newImageView.setImage(image);
+            newBufferedImage = convertToBinaryImage;
         }
     }
 
@@ -112,7 +124,39 @@ public class Controller {
             undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
             Image image = SwingFXUtils.toFXImage(convertToGrayImage, null);
             newImageView.setImage(image);
+            newBufferedImage = convertToGrayImage;
         }
+    }
+
+    @FXML
+    void saltAndPepperNoise(ActionEvent event) {
+        if(newBufferedImage != null) {
+            BufferedImage pepperNoise = Noise.saltPepperNoise(newBufferedImage, getPercent()/100);
+            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
+            Image image = SwingFXUtils.toFXImage(pepperNoise, null);
+            newImageView.setImage(image);
+            newBufferedImage = pepperNoise;
+        }
+    }
+
+    @FXML
+    void gaussianNoise(ActionEvent event) {
+        if(newBufferedImage != null) {
+            BufferedImage pepperNoise = Noise.gaussianNoise(newBufferedImage, 0.5,0.4);
+            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
+            Image image = SwingFXUtils.toFXImage(pepperNoise, null);
+            newImageView.setImage(image);
+            newBufferedImage = pepperNoise;
+        }
+    }
+
+    public double getPercent(){
+        TextInputDialog dialog = new TextInputDialog("50");
+        dialog.setTitle("Get percent");
+        dialog.setContentText("Please enter percent noise(0-100):");
+        Optional<String> result = dialog.showAndWait();
+        Double aDouble = Double.valueOf(result.orElse("0"));
+        return aDouble < 100 && aDouble > 0 ? aDouble : 0;
     }
 
 }

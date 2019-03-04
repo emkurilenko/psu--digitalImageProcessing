@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -59,6 +61,30 @@
                            </HBox.margin>
                         </Button>
                      </children></HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="212.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#saltAndPepperNoise" text="Salt and pepper">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#gaussianNoise" text="Gauss">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="212.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="67.0" text="Brightness" />
+                        <Slider fx:id="brightnessSlider" blockIncrement="5.0" max="50.0" min="-50.0">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Slider>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
         </items>
