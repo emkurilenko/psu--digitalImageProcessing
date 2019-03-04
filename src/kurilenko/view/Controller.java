@@ -4,21 +4,33 @@ package kurilenko.view;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import kurilenko.proccess.ImageToBinary;
 import kurilenko.proccess.ImageToGray;
 import kurilenko.proccess.Noise;
+import kurilenko.proccess.Utills;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
 
@@ -53,7 +65,8 @@ public class Controller {
     public void initialize() {
         SplitPane.setResizableWithParent(splitPane, Boolean.TRUE);
         brightnessSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-
+            BufferedImage bufferedImage = Utills.changeBrightnessS(newBufferedImage, (Double) newValue);
+            newImageView.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
         });
     }
 
@@ -70,6 +83,7 @@ public class Controller {
             newImageView.setImage(image);
             oldBufferedImage = ImageIO.read(file);
             newBufferedImage = ImageIO.read(file);
+            brightnessSlider.setValue(0);
         }else{
 
         }
@@ -159,4 +173,49 @@ public class Controller {
         return aDouble < 100 && aDouble > 0 ? aDouble : 0;
     }
 
+
+    @FXML
+    void showHistogram(ActionEvent event) {
+        int[] imageHistogram = ImageToBinary.imageHistogram(ImageToGray.convertToGrayImage(newBufferedImage));
+
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("");
+        BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis,yAxis);
+
+        XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<String, Number>();
+
+        for (int i = 0; i < imageHistogram.length; i++) {
+            dataSeries1.getData().add(new XYChart.Data<>(String.valueOf(i), imageHistogram[i]));
+        }
+
+        barChart.getData().add(dataSeries1);
+
+        VBox vbox = new VBox(barChart);
+
+        Scene secondScene = new Scene(vbox, 400, 400);
+
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Histogram");
+        newWindow.setScene(secondScene);
+
+        newWindow.initModality(Modality.WINDOW_MODAL);
+        newWindow.initOwner(stage);
+
+        newWindow.show();
+    }
+
+
+    @FXML
+    void improveContrast(ActionEvent event) {
+        BufferedImage grayImage = ImageToGray.convertToGrayImage(newBufferedImage);
+        BufferedImage improveImage = Utills.improveImage(newBufferedImage);
+
+        undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
+        Image image = SwingFXUtils.toFXImage(improveImage, null);
+        newImageView.setImage(image);
+        newBufferedImage = improveImage;
+    }
 }
