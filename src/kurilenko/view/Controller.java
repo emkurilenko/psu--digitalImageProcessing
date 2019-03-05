@@ -9,10 +9,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -39,6 +36,25 @@ public class Controller {
     private Stage stage;
 
     @FXML
+    private Button buttonHistogram;
+
+    @FXML
+    private Button buttonToGray;
+
+    @FXML
+    private Button buttonToBIn;
+
+    @FXML
+    private Button buttonSaltAndPepperNoise;
+
+    @FXML
+    private Button buttonToGaussianNoise;
+
+    @FXML
+    private Button buttonImporveContrast;
+
+
+    @FXML
     private ImageView oldImageView;
     @FXML
     private ImageView newImageView;
@@ -54,6 +70,8 @@ public class Controller {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    private boolean isGrayImage = false;
 
     final FileChooser fileChooser = new FileChooser();
 
@@ -124,21 +142,26 @@ public class Controller {
     void convertToBinaryImage(ActionEvent event) {
         if(newBufferedImage != null) {
             BufferedImage convertToBinaryImage = ImageToBinary.binarize(ImageToGray.convertToGrayImage(newBufferedImage));
-            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
-            Image image = SwingFXUtils.toFXImage(convertToBinaryImage, null);
-            newImageView.setImage(image);
-            newBufferedImage = convertToBinaryImage;
+           changeImage(convertToBinaryImage);
         }
     }
 
     @FXML
     void convertToGrayImage(ActionEvent event) {
-        if(newBufferedImage != null) {
+        if(newBufferedImage != null && !isGrayImage) {
             BufferedImage convertToGrayImage = ImageToGray.convertToGrayImage(newBufferedImage);
-            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
-            Image image = SwingFXUtils.toFXImage(convertToGrayImage, null);
-            newImageView.setImage(image);
-            newBufferedImage = convertToGrayImage;
+            changeImage(convertToGrayImage);
+
+            isGrayImage = true;
+
+            buttonHistogram.setDisable(false);
+            buttonImporveContrast.setDisable(false);
+            buttonSaltAndPepperNoise.setDisable(false);
+            buttonToBIn.setDisable(false);
+            buttonToGaussianNoise.setDisable(false);
+            brightnessSlider.setDisable(false);
+
+            buttonToGray.setDisable(isGrayImage);
         }
     }
 
@@ -146,23 +169,25 @@ public class Controller {
     void saltAndPepperNoise(ActionEvent event) {
         if(newBufferedImage != null) {
             BufferedImage pepperNoise = Noise.saltPepperNoise(newBufferedImage, getPercent()/100);
-            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
-            Image image = SwingFXUtils.toFXImage(pepperNoise, null);
-            newImageView.setImage(image);
-            newBufferedImage = pepperNoise;
+            changeImage(pepperNoise);
         }
     }
 
     @FXML
     void gaussianNoise(ActionEvent event) {
         if(newBufferedImage != null) {
-            BufferedImage pepperNoise = Noise.gaussianNoise(newBufferedImage, 0.5,0.4);
-            undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
-            Image image = SwingFXUtils.toFXImage(pepperNoise, null);
-            newImageView.setImage(image);
-            newBufferedImage = pepperNoise;
+            BufferedImage gaussianNoise = Noise.gaussianNoise(newBufferedImage, 0.5,0.4);
+            changeImage(gaussianNoise);
         }
     }
+
+    private void changeImage(BufferedImage newBufferedImage){
+        undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
+        Image image = SwingFXUtils.toFXImage(newBufferedImage, null);
+        newImageView.setImage(image);
+        this.newBufferedImage = newBufferedImage;
+    }
+
 
     public double getPercent(){
         TextInputDialog dialog = new TextInputDialog("50");
@@ -176,16 +201,16 @@ public class Controller {
 
     @FXML
     void showHistogram(ActionEvent event) {
-        int[] imageHistogram = ImageToBinary.imageHistogram(ImageToGray.convertToGrayImage(newBufferedImage));
+        int[] imageHistogram = ImageToBinary.imageHistogram(newBufferedImage);
 
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("");
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("");
-        BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis,yAxis);
+        BarChart<String, Number> barChart = new BarChart<>(xAxis,yAxis);
 
-        XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<String, Number>();
+        XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<>();
 
         for (int i = 0; i < imageHistogram.length; i++) {
             dataSeries1.getData().add(new XYChart.Data<>(String.valueOf(i), imageHistogram[i]));
@@ -211,11 +236,8 @@ public class Controller {
     @FXML
     void improveContrast(ActionEvent event) {
         BufferedImage grayImage = ImageToGray.convertToGrayImage(newBufferedImage);
-        BufferedImage improveImage = Utills.improveImage(newBufferedImage);
+        BufferedImage improveImage = Utills.addContrastFilter(newBufferedImage, 50);
 
-        undoImageStack.push(SwingFXUtils.fromFXImage(newImageView.getImage(), null));
-        Image image = SwingFXUtils.toFXImage(improveImage, null);
-        newImageView.setImage(image);
-        newBufferedImage = improveImage;
+        changeImage(improveImage);
     }
 }

@@ -14,9 +14,9 @@ public class Utills {
         for (int i = 0; i < origin.getWidth(); i++) {
             for (int j = 0; j < origin.getHeight(); j++) {
                 Color color = new Color(origin.getRGB(i, j));
-                int red = (int) Math.round(color.getRed() * step);
-                int green = (int) Math.round(color.getGreen() * step);
-                int blue = (int) Math.round(color.getBlue() * step);
+                int red = (int) Math.round(color.getRed() + step);
+                int green = (int) Math.round(color.getGreen() + step);
+                int blue = (int) Math.round(color.getBlue() + step);
                 if (red < 0) red = 0;
                 if (red > 255) red = 255;
                 if (green < 0) green = 0;
@@ -30,7 +30,7 @@ public class Utills {
         return changeImage;
     }
 
-    public static BufferedImage improveImage(BufferedImage originGrayImage) {
+    public static BufferedImage improveCorrectionImage(BufferedImage originGrayImage) {
         int[] histogram = ImageToBinary.imageHistogram(originGrayImage);
         List<Integer> listHistogramItem = Arrays.stream(histogram).boxed().collect(Collectors.toList());
 
@@ -42,16 +42,57 @@ public class Utills {
         int max = Collections.max(listHistogramItem);
         int min = Collections.min(listHistogramItem);
 
-        for (int i = 0; i < originGrayImage.getHeight(); i++) {
-            for (int j = 0; j < originGrayImage.getWidth(); j++) {
-                int oldPixel = new Color(originGrayImage.getRGB(j, i)).getRed();
-                int newPixel = ((oldPixel - min) / (max - min) * 255);
+        double coefficient = 256.0 / (maxPos - minPos);
+
+        for (int i = 0; i < originGrayImage.getWidth(); i++) {
+            for (int j = 0; j < originGrayImage.getHeight(); j++) {
+                int oldPixel = new Color(originGrayImage.getRGB(i, j)).getRed();
+                int newPixel = (int) ((oldPixel - minPos) * coefficient);
                 if (newPixel < 0) newPixel = 0;
                 if (newPixel > 255) newPixel = 255;
-                imageImprove.setRGB(j, i, new Color(newPixel, newPixel, newPixel).getRGB());
+                imageImprove.setRGB(i, j, new Color(newPixel, newPixel, newPixel).getRGB());
             }
         }
 
         return imageImprove;
+    }
+
+    public static BufferedImage addContrastFilter(BufferedImage grayImage, int correction) {
+        BufferedImage contrastImage = new BufferedImage(grayImage.getWidth(),grayImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        int imageRows = grayImage.getHeight();
+        int imageCols = grayImage.getWidth();
+
+        int lAB = 0;
+
+        int b[] = new int[256];
+
+        for (int i = 0; i < imageRows; i++) {
+            for (int j = 0; j < imageCols; j++) {
+                lAB += new Color(grayImage.getRGB(j, i)).getRed();
+            }
+        }
+
+        lAB /= imageRows * imageCols;
+
+        double k = 1.0 + correction / 100.0;
+
+        for (int i = 0; i < 256; i++) {
+            int delta = (int) i - lAB;
+            int temp = (int) (lAB + k * delta);
+
+            if (temp < 0)
+                temp = 0;
+            if (temp >= 255)
+                temp = 255;
+            b[i] = temp;
+        }
+
+        for (int i = 0; i < imageRows; i++) {
+            for (int j = 0; j < imageCols; j++) {
+                Color c = new Color(grayImage.getRGB(j, i));
+                contrastImage.setRGB(j, i, b[c.getRed()]);
+            }
+        }
+        return contrastImage;
     }
 }

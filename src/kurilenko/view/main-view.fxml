@@ -41,7 +41,7 @@
                   <Insets bottom="10.0" left="15.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#showHistogram" text="Histogram">
+            <Button fx:id="buttonHistogram" disable="true" mnemonicParsing="false" onAction="#showHistogram" text="Histogram">
                <HBox.margin>
                   <Insets bottom="10.0" left="15.0" top="10.0" />
                </HBox.margin>
@@ -55,12 +55,12 @@
                <children>
                   <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="212.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#convertToGrayImage" text="Полутоновое">
+                        <Button fx:id="buttonToGray" mnemonicParsing="false" onAction="#convertToGrayImage" text="Полутоновое">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#convertToBinaryImage" text="Бинарное">
+                        <Button fx:id="buttonToBIn" disable="true" mnemonicParsing="false" onAction="#convertToBinaryImage" text="Бинарное">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -68,12 +68,12 @@
                      </children></HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="212.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#saltAndPepperNoise" text="Соль и перец">
+                        <Button fx:id="buttonSaltAndPepperNoise" disable="true" mnemonicParsing="false" onAction="#saltAndPepperNoise" text="Соль и перец">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#gaussianNoise" text="Гаусса">
+                        <Button fx:id="buttonToGaussianNoise" disable="true" mnemonicParsing="false" onAction="#gaussianNoise" text="Гаусса">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -83,14 +83,14 @@
                   <HBox prefHeight="32.0" prefWidth="212.0">
                      <children>
                         <Label prefHeight="32.0" prefWidth="67.0" text="Яркость" />
-                        <Slider fx:id="brightnessSlider" blockIncrement="1.0" max="10.0" min="-10.0">
+                        <Slider fx:id="brightnessSlider" blockIncrement="1.0" disable="true" max="50.0" min="-50.0">
                            <HBox.margin>
                               <Insets top="10.0" />
                            </HBox.margin>
                         </Slider>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#improveContrast" prefHeight="25.0" prefWidth="215.0" text="Улучшить контрастность" />
+                  <Button fx:id="buttonImporveContrast" disable="true" mnemonicParsing="false" onAction="#improveContrast" prefHeight="25.0" prefWidth="215.0" text="Улучшить контрастность" />
                </children>
             </VBox>
         </items>

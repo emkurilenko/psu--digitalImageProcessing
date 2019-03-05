@@ -8,7 +8,8 @@ public class ImageToBinary {
 
         int[] histogram = new int[256];
 
-        for(int i=0; i<histogram.length; i++) histogram[i] = 0;
+        for(int i=0; i<histogram.length; i++)
+            histogram[i] = 0;
 
         for(int i=0; i<input.getWidth(); i++) {
             for(int j=0; j<input.getHeight(); j++) {
