@@ -17,10 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import kurilenko.proccess.ImageToBinary;
-import kurilenko.proccess.ImageToGray;
-import kurilenko.proccess.Noise;
-import kurilenko.proccess.Utills;
+import kurilenko.proccess.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -101,7 +98,6 @@ public class Controller {
             newImageView.setImage(image);
             oldBufferedImage = ImageIO.read(file);
             newBufferedImage = ImageIO.read(file);
-            brightnessSlider.setValue(0);
         }else{
 
         }
@@ -142,7 +138,7 @@ public class Controller {
     void convertToBinaryImage(ActionEvent event) {
         if(newBufferedImage != null) {
             BufferedImage convertToBinaryImage = ImageToBinary.binarize(ImageToGray.convertToGrayImage(newBufferedImage));
-           changeImage(convertToBinaryImage);
+            changeImage(convertToBinaryImage);
         }
     }
 
@@ -236,8 +232,32 @@ public class Controller {
     @FXML
     void improveContrast(ActionEvent event) {
         BufferedImage grayImage = ImageToGray.convertToGrayImage(newBufferedImage);
-        BufferedImage improveImage = Utills.addContrastFilter(newBufferedImage, 50);
+        BufferedImage improveImage = Utills.improveCorrectionImage(newBufferedImage);
 
         changeImage(improveImage);
+    }
+
+    @FXML
+    void medianSevenOnSeven(ActionEvent event) {
+        MedianFilter medianFilter = new MedianFilter(7);
+        BufferedImage bufferedImage = new BufferedImage(newBufferedImage.getWidth(), newBufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        medianFilter.filter(newBufferedImage, bufferedImage);
+        changeImage(bufferedImage);
+    }
+
+    @FXML
+    void medianFiveOnFive(ActionEvent event) {
+        MedianFilter medianFilter = new MedianFilter(5);
+        BufferedImage bufferedImage = new BufferedImage(newBufferedImage.getWidth(), newBufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        medianFilter.filter(newBufferedImage, bufferedImage);
+        changeImage(bufferedImage);
+    }
+
+    @FXML
+    void medianThreeOnThree(ActionEvent event) {
+        MedianFilter medianFilter = new MedianFilter(3);
+        BufferedImage bufferedImage = new BufferedImage(newBufferedImage.getWidth(), newBufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        medianFilter.filter(newBufferedImage, bufferedImage);
+        changeImage(bufferedImage);
     }
 }

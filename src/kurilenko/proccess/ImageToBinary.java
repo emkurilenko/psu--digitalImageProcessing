@@ -10,14 +10,12 @@ public class ImageToBinary {
 
         for(int i=0; i<histogram.length; i++)
             histogram[i] = 0;
-
-        for(int i=0; i<input.getWidth(); i++) {
-            for(int j=0; j<input.getHeight(); j++) {
-                int red = new Color(input.getRGB (i, j)).getRed();
+        for(int i=0; i<input.getHeight(); i++) {
+            for(int j=0; j<input.getWidth(); j++) {
+                int red = new Color(input.getRGB (j, i)).getRed();
                 histogram[red]++;
             }
         }
-
         return histogram;
     }
 
@@ -101,6 +99,21 @@ public class ImageToBinary {
 
         return newPixel;
 
+    }
+
+    public static int[] calculateGrayFrequency(BufferedImage img) {
+        int hist[] = new int[256];
+        for (int i = 0; i < 256; i++) {
+            hist[i] = 0;
+        }
+        for (int i = 0; i < img.getWidth(); i++) {
+            for (int j = 0; j < img.getHeight(); j++) {
+                int rgb = img.getRGB(i, j);
+                int gray = (rgb & 0xff);
+                hist[gray]++;
+            }
+        }
+        return hist;
     }
 
 }
