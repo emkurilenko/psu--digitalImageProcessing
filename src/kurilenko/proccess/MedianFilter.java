@@ -7,59 +7,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MedianFilter {
-    private int size; //size of the square filter
+public class MedianFilter extends Filter{
 
     public MedianFilter(int s) {
-        if ((s%2 == 0)||(s < 3))
-        {
-            s = 3;
-        }
-        size = s;
-    }
-
-    public int getFilterSize() {
-        return size;
+        super(s);
     }
 
     public int median(int[] a) {
         List<Integer> list = Arrays.stream(a).boxed().collect(Collectors.toList());
         Collections.sort(list);
 
-        if (list.size()%2 == 1)
-            return list.get(list.size()/2);
+        if (list.size() % 2 == 1)
+            return list.get(list.size() / 2);
         else
-            return list.get(list.size()/2)+list.get((list.size()/2 -1))/2;
+            return list.get(list.size() / 2) + list.get((list.size() / 2 - 1)) / 2;
     }
 
-    public int[] getArray(BufferedImage image, int x, int y){
-        int[] n;
-        int h = image.getHeight();
-        int w = image.getWidth();
-        int xmin, xmax, ymin, ymax;
-        xmin = x - size/2;
-        xmax = x + size/2;
-        ymin = y - size/2;
-        ymax = y + size/2;
-
-        if (xmin < 0)
-            xmin = 0;
-        if (xmax > (w - 1))
-            xmax = w - 1;
-        if (ymin < 0)
-            ymin = 0;
-        if (ymax > (h - 1))
-            ymax = h - 1;
-        int nsize = (xmax-xmin+1)*(ymax-ymin+1);
-        n = new int[nsize];
-        int k = 0;
-        for (int i = xmin; i <= xmax; i++)
-            for (int j = ymin; j <= ymax; j++){
-                n[k] = image.getRGB(i, j); //get pixel value
-                k++;
-            }
-        return n;
-    }
 
     public void filter(BufferedImage srcImage, BufferedImage dstImage) {
         int height = srcImage.getHeight();
@@ -67,7 +30,7 @@ public class MedianFilter {
 
         int[] a;
 
-        for (int k = 0; k < height; k++){
+        for (int k = 0; k < height; k++) {
             for (int j = 0; j < width; j++) {
                 a = getArray(srcImage, j, k);
                 int[] red, green, blue;
@@ -86,10 +49,46 @@ public class MedianFilter {
                 int G = median(green);
                 int B = median(blue);
 
-                int spixel = ImageToBinary.colorToRGB(0,R,G,B);
+                int spixel = ImageToBinary.colorToRGB(0, R, G, B);
                 dstImage.setRGB(j, k, spixel);
             }
         }
+    }
+
+    public static int[][] matrixFiltration(int width, int height, int[][] pixel, int N, double[][] matryx) {
+        int k, m, gap = (int) (N / 2);
+        int tmpH = height + 2 * gap, tmpW = width + 2 * gap;
+        int[][] tmppixel = new int[tmpH][tmpW];
+        int[][] newpixel = new int[height][width];
+
+        for (int i = 0; i < gap; i++) {
+            for (int j = 0; j < gap; j++) {
+                tmppixel[i][tmpW - 1 - j] = pixel[0][0];
+                tmppixel[i][tmpW - 1 - j] = pixel[0][width - 1];
+                tmppixel[tmpH - 1 - i][tmpW - 1 - j] = pixel[height - 1][width - 1];
+            }
+        }
+
+        for (int i = gap; i < tmpH - gap; i++) {
+            for (int j = 0; j < gap; j++) {
+                tmppixel[i][j] = pixel[i - gap][j];
+                tmppixel[i][tmpW - 1 - j] = pixel[i - gap][width - 1 - j];
+            }
+        }
+
+        for (int i = 0; i < gap; i++) {
+            for (int j = gap; j < tmpW - gap; j++) {
+                tmppixel[i][j] = pixel[i][j];
+                tmppixel[tmpH - 1 - i][j] = pixel[height - 1 - i][j - gap];
+            }
+        }
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                tmppixel[i + gap][j + gap] = pixel[i][j];
+            }
+        }
+        return  null;
     }
 
 }

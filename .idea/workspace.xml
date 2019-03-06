@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/kurilenko/proccess/Filter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kurilenko/proccess/Histogram.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kurilenko/proccess/MedianFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/kurilenko/proccess/PixMath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/kurilenko/proccess/LowFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/psu_ digitalImageProcessing/kurilenko/proccess/ImageToBinary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/psu_ digitalImageProcessing/kurilenko/proccess/ImageToBinary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/psu_ digitalImageProcessing/kurilenko/view/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/psu_ digitalImageProcessing/kurilenko/view/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/psu_ digitalImageProcessing/kurilenko/view/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/psu_ digitalImageProcessing/kurilenko/view/main-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/kurilenko/proccess/ImageToBinary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kurilenko/proccess/ImageToBinary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/kurilenko/proccess/Utills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kurilenko/proccess/Utills.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/kurilenko/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kurilenko/view/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/kurilenko/proccess/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kurilenko/proccess/Filter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/kurilenko/proccess/MedianFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/kurilenko/proccess/MedianFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/kurilenko/view/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/kurilenko/view/main-view.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -74,10 +66,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kurilenko/view/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
+            <state relative-caret-position="365">
               <caret line="257" column="54" selection-start-line="257" selection-start-column="54" selection-end-line="257" selection-end-column="54" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kurilenko/view/main-view.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -95,20 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Filter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Noise.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="675">
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
             </state>
           </provider>
         </entry>
@@ -116,12 +106,24 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/MedianFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+            <state relative-caret-position="158">
+              <caret line="30" column="16" lean-forward="true" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#500#501#0" expanded="true" />
-                <element signature="e#527#528#0" expanded="true" />
+                <element signature="e#278#279#0" expanded="true" />
+                <element signature="e#302#303#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/LowFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
+              <folding>
+                <element signature="e#232#233#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,7 +132,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/PixMath.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4381">
+            <state relative-caret-position="5430">
               <caret line="370" column="17" selection-start-line="370" selection-start-column="17" selection-end-line="370" selection-end-column="17" />
               <folding>
                 <element signature="e#384#385#0" expanded="true" />
@@ -149,7 +151,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Histogram.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-135">
+            <state relative-caret-position="315">
               <caret line="21" column="37" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="37" />
             </state>
           </provider>
@@ -173,6 +175,7 @@
       <find>isGrayImage</find>
       <find>slider</find>
       <find>sav</find>
+      <find>pixel</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -200,7 +203,10 @@
         <option value="$PROJECT_DIR$/src/kurilenko/proccess/PixMath.java" />
         <option value="$PROJECT_DIR$/src/kurilenko/proccess/Median.java" />
         <option value="$PROJECT_DIR$/src/kurilenko/view/Controller.java" />
+        <option value="$PROJECT_DIR$/src/kurilenko/proccess/LowMatrix.java" />
         <option value="$PROJECT_DIR$/src/kurilenko/proccess/MedianFilter.java" />
+        <option value="$PROJECT_DIR$/src/kurilenko/proccess/Filter.java" />
+        <option value="$PROJECT_DIR$/src/kurilenko/proccess/LowFilter.java" />
       </list>
     </option>
   </component>
@@ -212,9 +218,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="27" />
-    <option name="width" value="1612" />
-    <option name="height" value="876" />
+    <option name="y" value="30" />
+    <option name="width" value="683" />
+    <option name="height" value="738" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -224,8 +230,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -262,6 +266,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -274,7 +280,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551834054792" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551858084484" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="/opt/SceneBuilder/SceneBuilder" />
     <property name="project.structure.last.edited" value="Project" />
@@ -389,18 +395,19 @@
       <workItem from="1551643444961" duration="3603000" />
       <workItem from="1551682493219" duration="2171000" />
       <workItem from="1551704711618" duration="8342000" />
-      <workItem from="1551813314898" duration="17503000" />
+      <workItem from="1551813314898" duration="21915000" />
+      <workItem from="1551852669775" duration="2383000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65477000" />
+    <option name="totallyTimeSpent" value="72272000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1366" height="738" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21742424" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.23863636" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -409,7 +416,7 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32946634" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32512316" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32512316" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39244664" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -423,7 +430,7 @@
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32840723" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="15" />
-      <window_info anchor="bottom" id="Terminal" order="16" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="16" weight="0.32840723" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -502,6 +509,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
@@ -526,14 +547,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kurilenko/view/main-view.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="87" column="51" lean-forward="true" selection-start-line="87" selection-start-column="51" selection-end-line="87" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -567,24 +580,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Filter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Histogram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-135">
-          <caret line="21" column="37" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Noise.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="420">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -593,7 +592,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/PixMath.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4381">
+        <state relative-caret-position="5430">
           <caret line="370" column="17" selection-start-line="370" selection-start-column="17" selection-end-line="370" selection-end-column="17" />
           <folding>
             <element signature="e#384#385#0" expanded="true" />
@@ -608,6 +607,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Histogram.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Utills.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
@@ -618,21 +624,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/kurilenko/view/main-view.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/kurilenko/view/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
+        <state relative-caret-position="365">
           <caret line="257" column="54" selection-start-line="257" selection-start-column="54" selection-end-line="257" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/LowFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#232#233#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/Filter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/kurilenko/proccess/MedianFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+        <state relative-caret-position="158">
+          <caret line="30" column="16" lean-forward="true" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-            <element signature="e#527#528#0" expanded="true" />
+            <element signature="e#278#279#0" expanded="true" />
+            <element signature="e#302#303#0" expanded="true" />
           </folding>
         </state>
       </provider>
